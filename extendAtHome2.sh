@@ -16,19 +16,25 @@
 EXT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^eDP | head -n 1`
 INT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^DP | head -n 1`
 
-# get the absolute displays images widths and heights in pixels
+# get the absolute displays images widths and heights in pixels (EXTernal and INTernal Monitor)
 EXT_W=`xrandr | sed 's/^'"${EXT}"' [^0-9]* \([0-9]\+\)x.*$/\1/p;d'`
 EXT_H=`xrandr | sed 's/^'"${EXT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
+
 INT_W=`xrandr | sed 's/^'"${INT}"' [^0-9]* \([0-9]\+\)x.*$/\1/p;d'`
 INT_H=`xrandr | sed 's/^'"${EXT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
 
 # calculate the resolution width and height of the internal monitor after scaling
 # that is double of the internals display hight and width
 S_INT_W=`echo $(( $INT_W*2 ))  | sed 's/^-//'`
-# correct syntax : off_w=`echo $(( ($int_w-$ext_w)/2 )) | sed 's/^-//'`
-s_int_h=`echo ${ $int_h}*2  | sed 's/^-//'`
+off_w=`echo $(( ($INT_W-$EXT_W)/2 )) | sed 's/^-//'` # correct syntax :
+s_int_h=`echo $( $int_h)*2  | sed 's/^-//'`
 
 # set the output resolution for the monitors
-xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 1x1  --output "${EXT}" --auto --scale 2x2 --pos 0x0 
 
-xrandr --output "${INT}" --auto --pos 0x0 --scale 2x2  --output "${EXT}" --auto --scale 1x1 --pos ${s_int_w}x${s_int_h}
+
+
+# external DP2-1 monitor
+xrandr --output "${INT}" --auto --pos 0x0 --scale 2x2  --output "${EXT}" --auto --scale 1x1 --pos ${INT_W}x${INT_H}
+
+# internal eDP1 monitor first and exteranl eDP2 minitor second
+xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 1x1  --output "${EXT}" --auto --scale 2x2 --pos 0x0 
