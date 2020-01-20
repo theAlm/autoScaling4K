@@ -33,9 +33,12 @@ s_int_h=`echo $( $INT_H*2)  | sed 's/^-//'`
 
 
 
-# external DP2-1 monitor
+# on internal eDP1 monitor
 xrandr --output "${INT}" --auto --pos 0x0 --scale 1x1 
+# on external DP2-1 monitor
 xrandr --output "${EXT}" --auto --pos ${off_w}x0 --scale 1x1
+
+
 
 # internal eDP1 monitor first and exteranl eDP2 minitor second
 xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 1x1  --output "${EXT}" --auto --scale 2x2 --pos 0x0 
