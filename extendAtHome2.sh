@@ -44,4 +44,4 @@ off_w=`echo $(( ($INT_W-$EXT_W)/2 )) | sed 's/^-//'`
 
 
 # internal eDP1 monitor first and exteranl eDP2 minitor second
-xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 2x2  --output"${EXT}" --auto --scale 1x1 --pos "${S_INT_W}x${s_int_h}" 
+xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 2x2  --output"${EXT}"  --auto --scale 1x1 --pos "${S_INT_W}x${s_int_h}" 
