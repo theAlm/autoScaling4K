@@ -25,20 +25,23 @@ INT_H=`xrandr | sed 's/^'"${INT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
 
 # tested the variables untill here
 
-# calculate the resolution width and height of the internal monitor after scaling
+# calculate the resolution, width and height of the internal monitor after scaling
 # that is double of the internals display hight and width
-S_INT_W=`echo $(( $INT_W*2 ))  | sed 's/^-//'`
-off_w=`echo $(( ($INT_W-$EXT_W)/2 )) | sed 's/^-//'` 
+S_INT_W =`echo $(echo "$INT_W" )) | sed 's/^-//'`
 s_int_h=`echo $( $INT_H*2)  | sed 's/^-//'`
+
+ext_h=`xrandr | sed 's/^'"${EXT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
+off_w=`echo $(( ($INT_W-$EXT_W)/2 )) | sed 's/^-//'` 
+
 
 # set the output resolution for the monitors
 
 # on internal eDP1 monitor
-xrandr --output "${INT}" --auto --pos 0x0 --scale 1x1 
+#xrandr --output "${INT}" --auto --pos 0x0 --scale 1x1 
 # on external DP2-1 monitor
-xrandr --output "${EXT}" --auto --pos ${off_w}x0 --scale 1x1
+#xrandr --output "${EXT}" --auto --pos ${off_w}x0 --scale 1x1
 
 
 
 # internal eDP1 monitor first and exteranl eDP2 minitor second
-xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 1x1  --output "${EXT}" --auto --scale 2x2 --pos 0x0 
+xrandr --output "${INT}" --auto --pos ${off_w}x${ext_h} --scale 2x2  --output"${EXT}" --auto --scale 1x1 --pos "${S_INT_W}x${s_int_h}" 
