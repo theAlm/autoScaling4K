@@ -10,7 +10,7 @@
 # $ xrandr
 # we know the resolutions e.g.:
 # internal monitor: eDP1 connected 2560x1440+0+0 (normal left inverted right x axis y axis) 310mm x 170mm
-# my Philips monitor: DP2-1 connected primary 1920x1080+2560+0 (normal left inverted right x axis y axis) 530mm x 300mm
+# my external Philips monitor: DP2-1 connected primary 1920x1080+2560+0 (normal left inverted right x axis y axis) 530mm x 300mm
 
 # get the resolutions of the external and internal display
 EXT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^eDP | head -n 1`
@@ -23,6 +23,8 @@ EXT_H=`xrandr | sed 's/^'"${EXT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
 INT_W=`xrandr | sed 's/^'"${INT}"' [^0-9]* \([0-9]\+\)x.*$/\1/p;d'`
 INT_H=`xrandr | sed 's/^'"${INT}"' [^0-9]* [0-9]\+x\([0-9]\+\).*$/\1/p;d'`
 
+# tested the variables untill here
+
 # calculate the resolution width and height of the internal monitor after scaling
 # that is double of the internals display hight and width
 S_INT_W=`echo $(( $INT_W*2 ))  | sed 's/^-//'`
@@ -30,8 +32,6 @@ off_w=`echo $(( ($INT_W-$EXT_W)/2 )) | sed 's/^-//'`
 s_int_h=`echo $( $INT_H*2)  | sed 's/^-//'`
 
 # set the output resolution for the monitors
-
-
 
 # on internal eDP1 monitor
 xrandr --output "${INT}" --auto --pos 0x0 --scale 1x1 
