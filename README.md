@@ -1,4 +1,4 @@
 Monitor4KScaling
 
-Bugfix of the HiDPI resolution issues in linux.
-works for linux manjaro, plasma 5 workspace, Xorg window manager 
+bugfix of the HiDPI resolution issues in linux
+works for linux manjaro, plasma 5 workspace and Xorg window manager 
